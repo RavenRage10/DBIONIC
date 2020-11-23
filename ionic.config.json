@@ -1,0 +1,8 @@
+{
+  "name": "DBIONIC",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Bar</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content padding>
+ 
+  <ion-segment [(ngModel)]="selectedView">
+    <ion-segment-button value="devs">
+      <ion-label>Personas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="products">
+      <ion-label>Cocteles</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+ 
+  <div [ngSwitch]="selectedView">
+    <div *ngSwitchCase="'devs'">
+      <ion-item>
+        <ion-label position="stacked">¿Cual es su nombre?</ion-label>
+        <ion-input [(ngModel)]="developer.name" placeholder="Nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Posicion dentro del trabajo</ion-label>
+        <ion-input [(ngModel)]="developer.skills" placeholder="Encargo"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="addDeveloper()">Agregar Ayudante</ion-button>
+ 
+      <ion-list>
+        <ion-item button *ngFor="let dev of developers" [routerLink]="['/', 'developers', dev.id]">
+          
+          <ion-label>
+            <h2>{{ dev.name }}</h2>
+            <p>{{ dev.skills }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+ 
+    <div *ngSwitchCase="'products'">
+      <ion-item>
+        <ion-label position="stacked">Bebidas</ion-label>
+        <ion-input [(ngModel)]="product.name" placeholder="Nombre de la bebida"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Creador</ion-label>
+        <ion-select [(ngModel)]="product.creator">
+          <ion-select-option *ngFor="let dev of developers" [value]="dev.id">{{ dev.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button expand="block" (click)="addProduct()">Add Product</ion-button>
+ 
+      <ion-list>
+        <ion-item *ngFor="let prod of products | async">
+          <ion-label>
+            <h2>{{ prod.name }}</h2>
+            <p>Created by: {{ prod.creator }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+ 
+</ion-content>
